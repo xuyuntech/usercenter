@@ -2,10 +2,11 @@ package api
 
 import (
 	"fmt"
+
 	"github.com/gin-gonic/gin"
 )
 
-func (a *Api) test(c *gin.Context) {
+func (a *Api) wxCallback(c *gin.Context) {
 	key := c.Query("key")
 	if key == "" {
 		RespErr(c, fmt.Errorf("need param key"))
