@@ -8,6 +8,7 @@ import (
 	"github.com/xuyuntech/usercenter/manager"
 	"github.com/xuyuntech/usercenter/settings"
 	"github.com/xuyuntech/usercenter/version"
+	"os"
 )
 
 var flags = []cli.Flag{
@@ -37,6 +38,10 @@ func main() {
 		return nil
 	}
 	app.Action = action
+
+	if err := app.Run(os.Args); err != nil {
+		logrus.Fatal(err)
+	}
 }
 
 func action(c *cli.Context) error {
