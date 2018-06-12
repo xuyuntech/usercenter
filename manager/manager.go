@@ -1,6 +1,8 @@
 package manager
 
 import (
+	"github.com/go-xorm/xorm"
+	"github.com/urfave/cli"
 	"github.com/xuyuntech/usercenter/model"
 )
 
@@ -11,10 +13,17 @@ type Manager interface {
 }
 
 type DefaultManager struct {
+	engine *xorm.Engine
 }
 
-func NewManager() Manager {
-	return &DefaultManager{}
+func NewManager(c *cli.Context) (Manager, error) {
+	engine, err := model.NewEngine(c.String("database-datasource"), []interface{}{new(model.User)})
+	if err != nil {
+		return nil, err
+	}
+	return &DefaultManager{
+		engine: engine,
+	}, nil
 }
 
 func (m *DefaultManager) SaveUser(user *model.User) error {

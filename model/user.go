@@ -1,13 +1,21 @@
 package model
 
+import "time"
+
 type User struct {
-	ID         int64  `json:"id"`
-	Name       string `json:"name"`
-	Birthday   string `json:"birthday"`
-	Gender     string `json:"gender"`
-	Age        string `json:"age"`
-	TotalSpend string `json:"totalSpend"`
-	Address    string `json:"address"`
-	Phone      string `json:"phone"`
-	Email      string `json:"email"`
+	Id           int64     `json:"id" xorm:"pk"`
+	Name         string    `json:"name" xorm:"varchar(250)"`
+	Birthday     time.Time `json:"birthday" xorm:"-"`
+	BirthdayUnix int64     `json:"-"`
+	Gender       string    `json:"gender"`
+	Age          int64     `json:"age"`
+	TotalSpend   float64   `json:"totalSpend"`
+	Address      string    `json:"address"`
+	Phone        string    `json:"phone"`
+	Email        string    `json:"email"`
+
+	Created     time.Time `xorm:"-"`
+	CreatedUnix int64
+	Updated     time.Time `xorm:"-"`
+	UpdatedUnix int64
 }

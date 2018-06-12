@@ -23,6 +23,11 @@ var flags = []cli.Flag{
 		Name:   "listen, l",
 		Usage:  "http listen address",
 	},
+	cli.StringFlag{
+		EnvVar: "DATABASE_DATASOURCE",
+		Name:   "database-datasource, ds",
+		Usage:  "DATABASE_DATASOURCE",
+	},
 }
 
 func main() {
@@ -49,7 +54,10 @@ func action(c *cli.Context) error {
 	// 静态变量设置
 	settings.InitSettings(c)
 
-	controllerManager := manager.NewManager()
+	controllerManager, err := manager.NewManager(c)
+	if err != nil {
+		return err
+	}
 
 	server := &api.Api{
 		Listen:  c.String("listen"),
