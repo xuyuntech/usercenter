@@ -14,4 +14,4 @@ push: build
 
 mysql:
 	docker rm -f usercenter-mysql || true
-	docker run -d --name usercenter-mysql -p 3306:3306 -v `pwd`/db_data:/var/lib/mysql mysql
+	docker run -d --name usercenter-mysql -e MYSQL_ROOT_PASSWORD=Xuyun.123 -e MYSQL_DATABASE=xuyuntech_health -e MYSQL_USER=xuyuntech -p 3306:3306 -v `pwd`/db_data:/var/lib/mysql mysql
