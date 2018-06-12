@@ -18,7 +18,7 @@ func (a *Api) Run() error {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.Use(cors.New(cors.Config{
-		AllowMethods:     []string{"GET", "POST", "PUT", "HEAD"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "HEAD"},
 		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "X-Requested-With", "X-Access-Token"},
 		AllowCredentials: false,
 		AllowAllOrigins:  true,
@@ -37,12 +37,17 @@ func (a *Api) Run() error {
 		// 获取用户基础信息
 		authorized.GET("/userinfo", a.userinfo)
 	}
+	// r.GET("/app/medicalItems/:id", a.getMedicalItem)
+	// r.POST("/app/medicalItems/new", a.getMedicalItem)
+	// r.PUT("/app/medicalItems/:id", a.getMedicalItem)
+	// r.DELTE("/app/medicalItems/:id", a.getMedicalItem)
 
 	// TODO RBAC
 
 	// 上传初始用户资料，上线之前需要将门店已有用户数据导入
 	//    上传方式为 Excel 导入
 	r.POST("/upload_users", a.uploadUsers)
+
 	return r.Run(a.Listen)
 }
 

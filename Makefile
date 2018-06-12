@@ -13,5 +13,5 @@ push: build
 	docker push ${PREFIX}/${IMAGE_APP}:${IMAGE_APP_TAG}
 
 mysql:
-    docker rm -f usercenter-mysql || true
-    docker run -d --name usercenter-mysql -p 3306:3306 -v `pwd`/db_data:/var/lib/mysql mysql
+	docker rm -f usercenter-mysql || true
+	docker run -d --name usercenter-mysql -p 3306:3306 -v `pwd`/db_data:/var/lib/mysql mysql

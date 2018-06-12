@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/Sirupsen/logrus"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/urfave/cli"
@@ -8,7 +10,6 @@ import (
 	"github.com/xuyuntech/usercenter/manager"
 	"github.com/xuyuntech/usercenter/settings"
 	"github.com/xuyuntech/usercenter/version"
-	"os"
 )
 
 var flags = []cli.Flag{
@@ -45,6 +46,7 @@ func main() {
 }
 
 func action(c *cli.Context) error {
+	// 静态变量设置
 	settings.InitSettings(c)
 
 	controllerManager := manager.NewManager()

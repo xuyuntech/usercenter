@@ -6,6 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// get		查询
+// post		增加
+// put		修改
+// delete	删除
 func (a *Api) wxCallback(c *gin.Context) {
 	key := c.Query("key")
 	if key == "" {
