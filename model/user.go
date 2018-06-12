@@ -19,3 +19,21 @@ type User struct {
 	Updated     time.Time `xorm:"-"`
 	UpdatedUnix int64
 }
+
+func (me *User) BeforeInsert() {
+	me.CreatedUnix = time.Now().Unix()
+	me.UpdatedUnix = me.CreatedUnix
+}
+
+func (me *User) BeforeUpdate() {
+	me.UpdatedUnix = time.Now().Unix()
+}
+
+func (me *User) AfterSet(colName string, _ xorm.Cell) {
+	switch colName {
+	case "created_unix":
+		me.Created = time.Unix(me.CreatedUnix, 0).Local()
+	case "updated_unix":
+		me.Updated = time.Unix(me.UpdatedUnix, 0)
+	}
+}
